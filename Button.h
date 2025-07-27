@@ -27,6 +27,8 @@ class Button
     static Font pencil;
     static Sound click;
 
+    static bool resourceguard;
+
 
 
    

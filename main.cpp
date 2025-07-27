@@ -35,8 +35,7 @@ int main()
 
         ClearBackground(LIGHTGRAY);
 
-        system("clear");
-        cout<<"Button Value: "<<pushbutton.update()<<endl;
+        pushbutton.update();
         pushbutton.draw();
 
 

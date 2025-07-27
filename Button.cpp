@@ -10,6 +10,7 @@ Texture2D Button::button_on{0};
 Texture2D Button::activetexture{0};
 Font Button::pencil{0};
 Sound Button::click{0};
+bool Button::resourceguard{false};
 
 using namespace std;
 
@@ -18,12 +19,18 @@ using namespace std;
 
 Button::Button(Vector2 loc, float scale)
 {
-    button_off=LoadTexture("./resources/button_up.png");
-    button_on=LoadTexture("./resources/button_pressed.png");
-    activetexture=button_off;  //start with off position
-    pencil=LoadFontEx("./resources/Pencil.ttf",50,0,0);
-    click=LoadSound("./resources/click.wav");
+    if (!resourceguard) //only once
+    {
+        cout<<"Loading the resources.....\n";
 
+        button_off=LoadTexture("./resources/button_up.png");
+        button_on=LoadTexture("./resources/button_pressed.png");
+        activetexture=button_off;  //start with off position
+        pencil=LoadFontEx("./resources/Pencil.ttf",50,0,0);
+        click=LoadSound("./resources/click.wav");
+
+        resourceguard=true;
+    }
     location=loc;
     buttonscale=scale;
 
@@ -35,8 +42,12 @@ Button::Button(Vector2 loc, float scale)
 //----------------------------------------------
 Button::~Button()
 {
-
-    unloadResources();
+    if(resourceguard)
+    {
+        cout<<"unloading the resources....\n";
+        unloadResources();
+        resourceguard=false;
+    }
 
 }
 //-----------------------------------------------
