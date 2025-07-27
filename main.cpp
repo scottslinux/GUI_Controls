@@ -24,6 +24,9 @@ int main()
     Button pushbutton({400,400},0.2);
     Button push2({10,10},0.2);
 
+    Button* mybutton;
+    mybutton=new Button({200,800},0.5);
+
 
     //  Create Test Window for the controls to run in
 
@@ -42,27 +45,15 @@ int main()
         pushbutton.draw();
         push2.draw();
 
-
-
-
-
-
-
+        mybutton->update();
+        mybutton->draw();
 
 
 
         EndDrawing();
 
 
-
-
-
-
-
     }
-
-
-
 
     
     return 0;

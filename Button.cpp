@@ -87,9 +87,9 @@ void Button::draw()
     DrawTextureEx(activetexture,{location.x,location.y},0,buttonscale,WHITE);
     
     if(value)
-        DrawTextEx(pencil,"PRESSED!!!",{location.x,location.y+200},100,0,BLACK);
+        DrawTextEx(pencil,"PRESSED!!!",{location.x+button_off.width*buttonscale,location.y},100,0,BLACK);
         else
-            DrawTextEx(pencil,"press me...",{location.x,location.y+200},100,0,BLACK);
+            DrawTextEx(pencil,"press me...",{location.x+button_off.width*buttonscale,location.y},100,0,BLACK);
 
 Vector2 center;
     center.x=button_off.width/2+location.x;
