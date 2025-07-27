@@ -11,7 +11,8 @@ private:
 
     float scale=1.0;
     float timer=0.0;    //use for animation timing
-
+    Rectangle knobrect;
+    int knoboffset=0;
     
     bool timerflag=false;
     bool animationflag=false;

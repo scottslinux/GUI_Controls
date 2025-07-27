@@ -16,7 +16,6 @@ int main()
     InitAudioDevice();
 
     SetTargetFPS(60);
-    //SetWindowPosition(1800,1800);
 
     float winwidth=GetScreenWidth();
     float winheight=GetScreenHeight();
@@ -54,7 +53,7 @@ int main()
 
 
     }
-    
+    CloseAudioDevice();
     return 0;
     
 }

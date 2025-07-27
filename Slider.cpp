@@ -34,6 +34,9 @@ Slider::Slider(Vector2 loc, float sliderscale,int detnts,int minim,int maxi)
     max=maxi;
     detents=detnts;
 
+    knobrect=Rectangle{location.x,location.y,knob.width*scale,
+            knob.height*scale};
+
 
 }
 
@@ -67,18 +70,22 @@ void Slider::unloadResources()
 int Slider::update()
 {
 
-
+    return 0;
 }
 //**************************************************** */
 void Slider::draw()
 {
     int offset=200;
     DrawTextureEx(plate_on,location,0,scale,WHITE);
-    DrawTextureEx(knob,{location.x+offset,location.y},0,scale,WHITE);
+
+    //DrawRectanglePro(knobrect,{0,0},0,RED);
+
+    DrawTextureEx(knob,{knobrect.x,knobrect.y},0,scale,WHITE);
+    DrawCircle(knobrect.x+(knob.width/2*scale),knobrect.y+knob.height/2*scale,70*scale,BLUE);
 
 
 
-
+    return;
 }
 //**************************************************** */
 //   Generates a delay of given duration (seconds)
