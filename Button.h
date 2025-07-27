@@ -22,7 +22,10 @@ class Button
 
     static Texture2D button_off;
     static Texture2D button_on;
-    static Texture2D activetexture;
+
+                            //instance specific
+
+
 
     static Font pencil;
     static Sound click;

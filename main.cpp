@@ -21,7 +21,8 @@ int main()
     float winheight=GetScreenHeight();
     float scale=1.0;
 
-    Button pushbutton({400,400},.2);
+    Button pushbutton({400,400},0.2);
+    Button push2({10,10},0.2);
 
 
     //  Create Test Window for the controls to run in
@@ -36,7 +37,10 @@ int main()
         ClearBackground(LIGHTGRAY);
 
         pushbutton.update();
+        push2.update();
+
         pushbutton.draw();
+        push2.draw();
 
 
 

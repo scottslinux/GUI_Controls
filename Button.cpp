@@ -7,15 +7,14 @@
 
 Texture2D Button::button_off{0};
 Texture2D Button::button_on{0};
-Texture2D Button::activetexture{0};
+
 Font Button::pencil{0};
 Sound Button::click{0};
 bool Button::resourceguard{false};
 
 using namespace std;
 
-
-
+//**************************************************** */
 
 Button::Button(Vector2 loc, float scale)
 {
@@ -25,7 +24,6 @@ Button::Button(Vector2 loc, float scale)
 
         button_off=LoadTexture("./resources/button_up.png");
         button_on=LoadTexture("./resources/button_pressed.png");
-        activetexture=button_off;  //start with off position
         pencil=LoadFontEx("./resources/Pencil.ttf",50,0,0);
         click=LoadSound("./resources/click.wav");
 
@@ -37,6 +35,8 @@ Button::Button(Vector2 loc, float scale)
 
 
     std::cout<<"in the constructor...\n";
+    std::cout<<"location: "<<location.x<<","<<location.y<<std::endl;
+
     return;
 }
 //----------------------------------------------
@@ -62,7 +62,6 @@ bool Button::update()
     if (CheckCollisionPointCircle(GetMousePosition(),center,100)
             && IsMouseButtonDown(MOUSE_BUTTON_LEFT)&& !timerflag)
                 {
-                    activetexture=button_on;
                     value=true;
                     if(!IsSoundPlaying(click))
                         PlaySound(click);
@@ -72,7 +71,6 @@ bool Button::update()
                     else    
                     if (!timerflag)
                     {
-                        activetexture=button_off;
                         value=false;
                     }
 
@@ -84,12 +82,14 @@ bool Button::update()
 //-----------------------------------------------
 void Button::draw()
 {
-    DrawTextureEx(activetexture,{400,400},0,buttonscale,WHITE);
+    Texture2D& activetexture=(!value ? button_off:button_on);
+    
+    DrawTextureEx(activetexture,{location.x,location.y},0,buttonscale,WHITE);
     
     if(value)
-        DrawTextEx(pencil,"PRESSED!!!",{400,600},100,0,BLACK);
+        DrawTextEx(pencil,"PRESSED!!!",{location.x,location.y+200},100,0,BLACK);
         else
-            DrawTextEx(pencil,"press me...",{400,600},100,0,BLACK);
+            DrawTextEx(pencil,"press me...",{location.x,location.y+200},100,0,BLACK);
 
 Vector2 center;
     center.x=button_off.width/2+location.x;
