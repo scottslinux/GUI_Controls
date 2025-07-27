@@ -5,6 +5,7 @@
 #include <raylib.h>
 
 #include "Button.h"
+#include "Slider.h"
 
 
 using namespace std;
@@ -21,13 +22,12 @@ int main()
     float winheight=GetScreenHeight();
     float scale=1.0;
 
-    Button pushbutton({400,400},0.2);
-    Button push2({10,10},0.2);
+    Button pushbutton({400,400},0.15);
+    Button push2({10,10},0.15);
 
-    Button* mybutton;
-    mybutton=new Button({200,800},0.5);
+    Slider slide_me({100,900},0.4,5,0,100);
 
-
+    
     //  Create Test Window for the controls to run in
 
     while(!WindowShouldClose())
@@ -45,16 +45,15 @@ int main()
         pushbutton.draw();
         push2.draw();
 
-        mybutton->update();
-        mybutton->draw();
+        slide_me.draw();
 
+     
 
 
         EndDrawing();
 
 
     }
-
     
     return 0;
     
