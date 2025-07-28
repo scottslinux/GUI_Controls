@@ -31,6 +31,7 @@ class Button
     static Sound click;
 
     static bool resourceguard;
+    static int resourcecounter;
 
 
 

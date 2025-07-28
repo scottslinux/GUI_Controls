@@ -11,6 +11,7 @@ Texture2D Button::button_on{0};
 Font Button::pencil{0};
 Sound Button::click{0};
 bool Button::resourceguard{false};
+int Button::resourcecounter{0};
 
 using namespace std;
 
@@ -31,6 +32,7 @@ Button::Button(Vector2 loc, float scale)
     }
     location=loc;
     buttonscale=scale;
+    resourcecounter++;
 
 
 
@@ -42,12 +44,14 @@ Button::Button(Vector2 loc, float scale)
 //----------------------------------------------
 Button::~Button()
 {
-    if(resourceguard)
+    if(resourcecounter==0)
     {
         cout<<"unloading the resources....\n";
         unloadResources();
         resourceguard=false;
     }
+    else
+        resourcecounter--;
 
 }
 //-----------------------------------------------

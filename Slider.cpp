@@ -64,7 +64,7 @@ void Slider::unloadResources()
 {
     resourcecounter--;
     cout<<"Trying to unload...resourcecounter: "<<resourcecounter<<endl;
-    
+
     if (resourcecounter==0)
     {
         UnloadTexture (plate_off);
@@ -115,7 +115,7 @@ void Slider::draw()
     int offset=200;
     DrawTextureEx(plate_on,location,0,scale,WHITE);
 
-    //DrawRectangleLines(knobrect.x,knobrect.y,knob.width*scale*.8,knob.height*scale*.8,GREEN);
+    DrawRectangleLines(knobrect.x,knobrect.y,knob.width*scale*.8,knob.height*scale*.8,GREEN);
 
     DrawTextureEx(knob,{knobrect.x,knobrect.y},0,scale,WHITE);
 

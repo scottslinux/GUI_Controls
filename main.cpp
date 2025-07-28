@@ -27,9 +27,9 @@ int main()
     Button pushbutton({420,200},0.15);
     Button push2({400,400},0.25);
 
-    Slider slide_red({150,900},0.4,5,0,100);
-    Slider slide_green({150,1200},0.4,5,0,100);
-    Slider slide_blue({150,1500},0.4,5,0,100);
+    Slider slide_red({150,900},0.4,5,0,255);
+    Slider slide_green({150,1200},0.4,5,0,255);
+    Slider slide_blue({150,1500},0.4,5,0,255);
 
 
 
