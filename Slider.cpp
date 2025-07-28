@@ -4,6 +4,8 @@
 #include <raylib.h>
 #include "Slider.h"
 
+using namespace std;
+
 Texture2D Slider::plate_on{0};
 Texture2D Slider::plate_off{0};
 Texture2D Slider::knob{0};
@@ -12,6 +14,7 @@ Texture2D Slider::knob{0};
 Sound Slider::slide{0};
 Font Slider::pencil{0};
 bool Slider::resourceguard{false};
+
 
 
 //**************************************************** */
@@ -33,7 +36,7 @@ Slider::Slider(Vector2 loc, float sliderscale,int detnts,int minim,int maxi)
     location=loc;
     scale=sliderscale;
     min=minim;
-    max=maxi;
+    max=maxi+1;
     detents=detnts;
 
     knobrect=Rectangle{location.x,location.y,knob.width*scale,
@@ -75,11 +78,15 @@ int Slider::update()
 
     if(CheckCollisionPointRec(GetMousePosition(),knobrect)&& (IsMouseButtonDown(MOUSE_BUTTON_LEFT)))
     {
-        if(GetMousePosition().x-20>location.x && GetMousePosition().x-20<location.x+plate_off.width*scale*.8)
+        if(GetMousePosition().x-40>=location.x && GetMousePosition().x-40<=location.x+plate_off.width*scale*.8)
         {
-            knobrect.x=GetMousePosition().x-20;
+            knobrect.x=GetMousePosition().x-40;
 
-            float percentage=knobrect.x/(location.x+plate_off.width*scale*.8);
+            float percentage=(knobrect.x-location.x)/((plate_off.width)*scale*0.8);
+            //percent= amount knob has traveled / total potential travel 
+
+            cout<<"percentage= "<<percentage<<endl;
+
             value=max*percentage;
 
 
@@ -94,7 +101,7 @@ int Slider::update()
 
 
 
-    return 0;
+    return value;
 }
 //**************************************************** */
 void Slider::draw()
