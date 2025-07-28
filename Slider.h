@@ -31,6 +31,7 @@ private:
     static Sound slide;
 
     static bool resourceguard;
+    static int resourcecounter;
 
 
 

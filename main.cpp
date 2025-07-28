@@ -20,16 +20,16 @@ int main()
     float winwidth=GetScreenWidth();
     float winheight=GetScreenHeight();
     float scale=1.0;
-    float greencolor=0;
-    float redcolor=90;
-    float bluecolor=120;
+    int greencolor=0;
+    int redcolor=90;
+    int bluecolor=120;
 
     Button pushbutton({420,200},0.15);
     Button push2({400,400},0.25);
 
-    //Slider slide_red({150,900},0.4,5,0,100);
-    Slider slide_green({150,900},0.4,5,0,100);
-    //Slider slide_blue({150,900},0.4,5,0,100);
+    Slider slide_red({150,900},0.4,5,0,100);
+    Slider slide_green({150,1200},0.4,5,0,100);
+    Slider slide_blue({150,1500},0.4,5,0,100);
 
 
 
@@ -43,20 +43,20 @@ int main()
 
 
 
-        ClearBackground(Color{redcolor,greencolor,bluecolor,255});
+        ClearBackground(Color{redcolor,greencolor,bluecolor});
 
         pushbutton.update();
         push2.update();
 
         greencolor=slide_green.update();
-        //redcolor=slide_red.update();
-        //bluecolor=slide_blue.update();
+        redcolor=slide_red.update();
+        bluecolor=slide_blue.update();
 
         pushbutton.draw();
         push2.draw();
 
-        //slide_blue.draw();
-        //slide_red.draw();
+        slide_blue.draw();
+        slide_red.draw();
         slide_green.draw();
 
 

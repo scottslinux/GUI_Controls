@@ -14,6 +14,7 @@ Texture2D Slider::knob{0};
 Sound Slider::slide{0};
 Font Slider::pencil{0};
 bool Slider::resourceguard{false};
+int Slider::resourcecounter{0};
 
 
 
@@ -41,6 +42,8 @@ Slider::Slider(Vector2 loc, float sliderscale,int detnts,int minim,int maxi)
 
     knobrect=Rectangle{location.x,location.y,knob.width*scale,
             knob.height*scale};
+    
+    resourcecounter++;
 
 
 }
@@ -59,7 +62,10 @@ Slider::~Slider()
 //**************************************************** */
 void Slider::unloadResources()
 {
-    if (resourceguard)
+    resourcecounter--;
+    cout<<"Trying to unload...resourcecounter: "<<resourcecounter<<endl;
+    
+    if (resourcecounter==0)
     {
         UnloadTexture (plate_off);
         UnloadTexture (plate_on);
