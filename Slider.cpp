@@ -11,7 +11,7 @@ Texture2D Slider::plate_off{0};
 Texture2D Slider::knob{0};
 
 
-Sound Slider::slide{0};
+//Sound Slider::slide{0};
 Font Slider::pencil{0};
 bool Slider::resourceguard{false};
 int Slider::resourcecounter{0};
@@ -28,7 +28,6 @@ Slider::Slider(Vector2 loc, float sliderscale,int detnts,int minim,int maxi)
         plate_off=LoadTexture("./resources/plate_off.png");
         knob=LoadTexture("./resources/knob.png");
         pencil=LoadFontEx("./resources/Inter.ttf",100,0,0);
-        //slide=LoadSound("./resources/slide");
 
         resourceguard=true; //lock it up!
 
@@ -39,6 +38,13 @@ Slider::Slider(Vector2 loc, float sliderscale,int detnts,int minim,int maxi)
     min=minim;
     max=maxi+1;
     detents=detnts;
+
+    x1=location.x+73*scale; //this is the start of the slider @100%-->73 pixes from left
+    x2=location.x+840*scale; //the slide ends at 840 pixels @ 100% --scaling down
+    slidelength=x2-x1;
+    slidepoint=x1;
+
+    cout<<"slidept: "<<slidepoint<<" X1: "<<x1<<endl;
 
     knobrect=Rectangle{location.x,location.y,knob.width*scale,
             knob.height*scale};
@@ -65,14 +71,30 @@ void Slider::unloadResources()
     resourcecounter--;
     cout<<"Trying to unload...resourcecounter: "<<resourcecounter<<endl;
 
+    //check to see if the resource actually exists before the Unload
     if (resourcecounter==0)
     {
-        UnloadTexture (plate_off);
-        UnloadTexture (plate_on);
-        UnloadTexture (knob);
-        UnloadSound (slide);
-        UnloadFont (pencil);
+        if (plate_off.id != 0) {
+            UnloadTexture(plate_off);
+            plate_off = Texture2D{};
+        }
+
+        if (plate_on.id != 0) {
+            UnloadTexture(plate_on);
+            plate_on = Texture2D{};
+        }
+
+        if (knob.id != 0) {
+            UnloadTexture(knob);
+            knob = Texture2D{};
+        }
+
+        if (pencil.texture.id != 0) {
+            UnloadFont(pencil);
+            pencil = Font{};
+        }
     }
+    
     
 
     return;
@@ -82,30 +104,51 @@ int Slider::update()
 {   //the 0.8 is to shrink the rectangle around the knob image
     //knobrect={location.x,location.y,knob.width*scale*.8,knob.height*scale*.8};
 
-    if(CheckCollisionPointRec(GetMousePosition(),knobrect)&& (IsMouseButtonDown(MOUSE_BUTTON_LEFT)))
+    
+    if(CheckCollisionPointCircle(GetMousePosition(),{slidepoint,location.y+plate_off.height*scale/2},
+                            60) && IsMouseButtonDown(MOUSE_BUTTON_LEFT))
     {
-        if(GetMousePosition().x-40>=location.x && GetMousePosition().x-40<=location.x+plate_off.width*scale*.8)
+        int normalized=GetMousePosition().x; //some point between x1-20 and x2+20
+
+        //add buffer to both sides
+        if((normalized>=x1-20) && normalized<=x2+20)
         {
-            knobrect.x=GetMousePosition().x-40;
+             
 
-            float percentage=(knobrect.x-location.x)/((plate_off.width)*scale*0.8);
-            //percent= amount knob has traveled / total potential travel 
+            if (normalized<x1) normalized=x1; //stop on the left
 
-            cout<<"percentage= "<<percentage<<endl;
+            if (normalized>x2) normalized=x2;//stop on the right
+            
+            
+            slidepoint=normalized; //normalized is between x1 and x2 so assign it
 
+            percentage=(slidepoint-x1)/slidelength;
             value=max*percentage;
 
-
-
-
+            return value;
             
 
         }
     }
+    else
+        if (CheckCollisionPointRec(GetMousePosition(),{location.x,location.y,plate_on.width*scale,
+                            plate_on.height*scale}) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+            {
+                int normalized=GetMousePosition().x-40;
+                
+                if(normalized>=x1 && normalized<=x2)
+                    slidepoint=normalized;
+
+                percentage=(slidepoint-x1)/slidelength;
+                value=max*percentage;
+
+            
+
+                
 
 
-
-
+            }
+    
 
     return value;
 }
@@ -115,14 +158,23 @@ void Slider::draw()
     int offset=200;
     DrawTextureEx(plate_on,location,0,scale,WHITE);
 
-    DrawRectangleLines(knobrect.x,knobrect.y,knob.width*scale*.8,knob.height*scale*.8,GREEN);
+    
+    
+    DrawCircle(slidepoint,
+                (plate_off.height)*scale/2+location.y,20,DARKGREEN);
+    DrawCircle(slidepoint-5,(plate_off.height)*scale/2+location.y-5,5,WHITE);
 
-    DrawTextureEx(knob,{knobrect.x,knobrect.y},0,scale,WHITE);
+    
+    float percentage=((float)slidepoint/x2);
+
 
     char buffer[50];
-            snprintf(buffer,sizeof(buffer),"Value: %d",value);
+            snprintf(buffer,sizeof(buffer),"value: %d  percent: %f ",value,percentage);
 
             DrawTextEx(pencil,buffer,{location.x,location.y+plate_off.height*scale+50},50,0,BLACK);
+
+    
+
 
 
 

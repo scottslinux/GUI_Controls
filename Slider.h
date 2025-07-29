@@ -28,7 +28,7 @@ private:
 
 
     static Font pencil;
-    static Sound slide;
+    //static Sound slide;
 
     static bool resourceguard;
     static int resourcecounter;
@@ -43,6 +43,15 @@ private:
     int detents=2; //number of detents along slider
     int min=0;
     int max=10;
+
+    //variables to help define the slide start and stop points on the backplate for calculating 
+    //the position of the slider
+
+    float x1=0;
+    float x2=0;
+    float slidelength=0;
+    float slidepoint=0;
+    float percentage=0;
     
 
     Slider(Vector2 location,float scale,int detnts, int min,int max);

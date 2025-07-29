@@ -44,14 +44,15 @@ Button::Button(Vector2 loc, float scale)
 //----------------------------------------------
 Button::~Button()
 {
+    resourcecounter--;  //decrement before checkin against 0. so 1 item would run destructor
+
     if(resourcecounter==0)
     {
         cout<<"unloading the resources....\n";
         unloadResources();
         resourceguard=false;
     }
-    else
-        resourcecounter--;
+    
 
 }
 //-----------------------------------------------
@@ -117,11 +118,25 @@ return true;
 void Button::unloadResources()
 {
 
-    UnloadTexture(button_off);
-    UnloadTexture(button_on);
-    UnloadFont(pencil);
+    if (button_off.id != 0) {
+        UnloadTexture(button_off);
+        button_off = Texture2D{};
+    }
 
+    if (button_on.id != 0) {
+        UnloadTexture(button_on);
+        button_on = Texture2D{};
+    }
 
+    if (pencil.texture.id != 0) {
+        UnloadFont(pencil);
+        pencil = Font{};
+    }
+
+    if (click.frameCount > 0) {
+        UnloadSound(click);
+        click = Sound{};
+    }
 
 
 

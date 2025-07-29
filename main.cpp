@@ -43,7 +43,8 @@ int main()
 
 
 
-        ClearBackground(Color{redcolor,greencolor,bluecolor});
+        //ClearBackground(Color{redcolor,greencolor,bluecolor});
+        ClearBackground(WHITE);
 
         pushbutton.update();
         push2.update();
