@@ -26,7 +26,8 @@ Slider::Slider(Vector2 loc, float sliderscale,int detnts,int minim,int maxi)
     {
         plate_on=LoadTexture("./resources/plate_on.png");
         plate_off=LoadTexture("./resources/plate_off.png");
-        knob=LoadTexture("./resources/knob.png");
+        knob=LoadTexture("./resources/chrome_knob.png");
+        
         pencil=LoadFontEx("./resources/Inter.ttf",100,0,0);
 
         resourceguard=true; //lock it up!
@@ -36,7 +37,7 @@ Slider::Slider(Vector2 loc, float sliderscale,int detnts,int minim,int maxi)
     location=loc;
     scale=sliderscale;
     min=minim;
-    max=maxi+1;
+    max=maxi;
     detents=detnts;
 
     x1=location.x+73*scale; //this is the start of the slider @100%-->73 pixes from left
@@ -108,7 +109,7 @@ int Slider::update()
     if(CheckCollisionPointCircle(GetMousePosition(),{slidepoint,location.y+plate_off.height*scale/2},
                             60) && IsMouseButtonDown(MOUSE_BUTTON_LEFT))
     {
-        int normalized=GetMousePosition().x; //some point between x1-20 and x2+20
+        float normalized=GetMousePosition().x; //some point between x1-20 and x2+20
 
         //add buffer to both sides
         if((normalized>=x1-20) && normalized<=x2+20)
@@ -116,6 +117,7 @@ int Slider::update()
              
 
             if (normalized<x1) normalized=x1; //stop on the left
+             
 
             if (normalized>x2) normalized=x2;//stop on the right
             
@@ -123,7 +125,9 @@ int Slider::update()
             slidepoint=normalized; //normalized is between x1 and x2 so assign it
 
             percentage=(slidepoint-x1)/slidelength;
-            value=max*percentage;
+
+            if (percentage<0.0) percentage=0;  //clamp to end floating point error
+            value=(int)max*percentage;
 
             return value;
             
@@ -134,13 +138,15 @@ int Slider::update()
         if (CheckCollisionPointRec(GetMousePosition(),{location.x,location.y,plate_on.width*scale,
                             plate_on.height*scale}) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
             {
-                int normalized=GetMousePosition().x-40;
+                float normalized=GetMousePosition().x;
                 
                 if(normalized>=x1 && normalized<=x2)
                     slidepoint=normalized;
 
                 percentage=(slidepoint-x1)/slidelength;
-                value=max*percentage;
+                if (percentage<0.0) percentage=0;  //clamp to end floating point error
+
+                value=(int)max*percentage;
 
             
 
@@ -155,23 +161,22 @@ int Slider::update()
 //**************************************************** */
 void Slider::draw()
 {
+    Color light{150,234,97,(rand()%150+100)};
+
     int offset=200;
     DrawTextureEx(plate_on,location,0,scale,WHITE);
+    //flashing LED light
+    DrawCircle(location.x+plate_off.width*scale*0.925,location.y+plate_off.height*scale*.2,6,light);
 
     
-    
-    DrawCircle(slidepoint,
-                (plate_off.height)*scale/2+location.y,20,DARKGREEN);
-    DrawCircle(slidepoint-5,(plate_off.height)*scale/2+location.y-5,5,WHITE);
+    DrawTextureEx(knob,{slidepoint-10,(plate_off.height)*scale/5+location.y},0,scale,WHITE);
 
     
-    float percentage=((float)slidepoint/x2);
-
-
     char buffer[50];
-            snprintf(buffer,sizeof(buffer),"value: %d  percent: %f ",value,percentage);
+            snprintf(buffer,sizeof(buffer),"value: %d  ",value);
 
-            DrawTextEx(pencil,buffer,{location.x,location.y+plate_off.height*scale+50},50,0,BLACK);
+            DrawTextEx(pencil,buffer,{location.x+plate_off.width*scale,
+                    location.y+(plate_off.height*scale)/3},50,0,BLACK);
 
     
 
@@ -181,7 +186,9 @@ void Slider::draw()
 
     return;
 }
-//**************************************************** */
+
+
+//********************************************************** */
 //   Generates a delay of given duration (seconds)
 //   for timing animations
 
