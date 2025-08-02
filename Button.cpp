@@ -25,7 +25,7 @@ Button::Button(Vector2 loc, float scale)
 
         button_off=LoadTexture("./resources/button_up.png");
         button_on=LoadTexture("./resources/button_pressed.png");
-        pencil=LoadFontEx("./resources/Pencil.ttf",50,0,0);
+        pencil=LoadFontEx("./resources/Inter.ttf",50,0,0);
         click=LoadSound("./resources/click.wav");
 
         resourceguard=true;
@@ -92,9 +92,9 @@ void Button::draw()
     DrawTextureEx(activetexture,{location.x,location.y},0,buttonscale,WHITE);
     
     if(value)
-        DrawTextEx(pencil,"PRESSED!!!",{location.x+button_off.width*buttonscale,location.y},100,0,BLACK);
+        DrawTextEx(pencil,"PRESSED!!!",{location.x+button_off.width*buttonscale,location.y},70,0,BLACK);
         else
-            DrawTextEx(pencil,"press me...",{location.x+button_off.width*buttonscale,location.y},100,0,BLACK);
+            DrawTextEx(pencil,"press me...",{location.x+button_off.width*buttonscale,location.y},70,0,BLACK);
 
 Vector2 center;
     center.x=button_off.width/2+location.x;

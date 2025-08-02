@@ -28,13 +28,14 @@ class recButton :public Button
 
     public:
 
-        recButton();
+        recButton(int,int,float);
         ~recButton();
         void draw() override;   //going to override base draw() method
+        bool update() override; //have to override update for rectangle collision
 
         
 
-        void uniqueFunction();
+        
 
 
 

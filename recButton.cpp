@@ -17,10 +17,16 @@ bool recButton::resourceguard2{false};
 
 
 
-recButton::recButton() : Button({500,500},0.5)
+recButton::recButton(int locx,int locy, float scale) : Button({500,500},0.5)
 {
-    if(!resourceguard) //only load once
+    location.x=locx;
+    location.y=locy;
+    buttonscale=scale;
+
+
+    if(!resourceguard2) //only load once
     {
+        cout<<"loading the rec buttons....\n";
         recButton_up=LoadTexture("./resources/RectangleButton_up.png");
             
         recButton_down=LoadTexture("./resources/RectangleButton_down.png");
@@ -65,24 +71,63 @@ recButton::~recButton()
 
 }
 //-------------------------------------------------
+bool recButton::update()
+
+{
+    //Define the buttons rectange
+
+    Rectangle collisRec={location.x,location.y
+        ,recButton_down.width*buttonscale,recButton_down.height*buttonscale};
+
+    
+
+
+    if (CheckCollisionPointRec(GetMousePosition(),collisRec)
+            && IsMouseButtonDown(MOUSE_BUTTON_LEFT)&& !timerflag)
+                {
+                    value=true;
+                    if(!IsSoundPlaying(click))
+                        PlaySound(click);
+                    timerflag=true;
+
+                }
+                    else    
+                    if (!timerflag)
+                    {
+                        value=false;
+                    }
+
+    if (timerflag)
+            clicktimer();
+
+
+    
+
+    return value;
+
+
+    
+}
+
+//-------------------------------------------------
 void recButton::draw()
 {
+
+
     Texture2D& activetexture=(!value ? recButton_up:recButton_down);
     
     DrawTextureEx(activetexture,{location.x,location.y},0,buttonscale,WHITE);
     
     if(value)
-        DrawTextEx(pencil,"rectangle",{location.x+button_off.width*buttonscale,location.y},100,0,BLACK);
+        DrawTextEx(pencil,"rectangle",{location.x+recButton_down.width*buttonscale,location.y},70,0,BLACK);
         else
-            DrawTextEx(pencil,"press me...",{location.x+button_off.width*buttonscale,location.y},100,0,BLACK);
-
-Vector2 center;
-    center.x=button_off.width/2+location.x;
-    center.y=button_off.height/2+location.y;
+            DrawTextEx(pencil,"press me...",{location.x+recButton_down.width*buttonscale,location.y},70,0,BLACK);
 
 
-    //DrawRectangleLines(location.x,location.y,
-     //       buttonscale*button_off.width,buttonscale*button_off.height,BLUE);
+    
+
+    DrawTextEx(pencil,"A",{location.x+(recButton_down.width*buttonscale)/3,location.y+(recButton_down.height*buttonscale)/7},
+        50,0,WHITE);
 
 
     return;
@@ -92,12 +137,4 @@ Vector2 center;
 
 
 
-}
-//-------------------------------------------------
-void recButton::uniqueFunction()
-{
-    cout<<"in the unique function....\n";
-
-
-    return;
 }

@@ -28,7 +28,7 @@ int main()
     Button pushbutton({420,200},0.15);
     Button push2({400,400},0.25);
 
-    recButton newRecButton;
+    recButton newRecButton(1000,900,0.3);
 
 
     
