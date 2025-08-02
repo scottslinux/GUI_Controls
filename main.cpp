@@ -6,6 +6,7 @@
 
 #include "Button.h"
 #include "Slider.h"
+#include "recButton.h"
 
 
 using namespace std;
@@ -26,6 +27,11 @@ int main()
 
     Button pushbutton({420,200},0.15);
     Button push2({400,400},0.25);
+
+    recButton newRecButton;
+
+
+    
 
     Slider slide_red({150,900},0.4,5,0,10);
     Slider slide_green({150,1200},0.4,5,0,255);
@@ -49,12 +55,16 @@ int main()
         pushbutton.update();
         push2.update();
 
+        newRecButton.update();
+
         greencolor=slide_green.update();
         redcolor=slide_red.update();
         bluecolor=slide_blue.update();
 
         pushbutton.draw();
         push2.draw();
+
+        newRecButton.draw();
 
         slide_blue.draw();
         slide_red.draw();

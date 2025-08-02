@@ -26,7 +26,7 @@ Slider::Slider(Vector2 loc, float sliderscale,int detnts,int minim,int maxi)
     {
         plate_on=LoadTexture("./resources/plate_on.png");
         plate_off=LoadTexture("./resources/plate_off.png");
-        knob=LoadTexture("./resources/chrome_knob.png");
+        knob=LoadTexture("./resources/knob.png");
         
         pencil=LoadFontEx("./resources/Inter.ttf",100,0,0);
 

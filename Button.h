@@ -9,7 +9,7 @@
 class Button
 
 {
-    private:
+    protected:
 
     float buttonscale=1.0;
     float timer=0.0;
@@ -45,8 +45,8 @@ class Button
     Button(Vector2 location,float scale);
     ~Button();
 
-    bool update();
-    void draw();
+    virtual bool update();
+    virtual void draw();
     bool getbuttonval();
     void unloadResources();
     bool clicktimer();
