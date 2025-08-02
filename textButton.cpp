@@ -101,7 +101,8 @@ void textButton::draw()
     else    //when clicked make the frame black
         {
             DrawRectangle(location.x-8,location.y-8,buttonwidth+16,buttonheight+16,BLACK);
-            DrawRectangle(location.x-5,location.y-5,buttonwidth+10,buttonheight+10,GREEN);
+            DrawRectangle(location.x-5,location.y-5,buttonwidth+10,buttonheight+10,
+                Color{255,15,0,255});
             DrawRectangle(location.x,location.y,buttonwidth,buttonheight,GRAY);
 
         }
@@ -148,7 +149,7 @@ void textButton::unloadResources()
 bool textButton::clicktimer()
 {
 
-    if(timer<0.4)
+    if(timer<0.6)
     {
             timer+=GetFrameTime();
 

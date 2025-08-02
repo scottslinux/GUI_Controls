@@ -31,7 +31,7 @@ int main()
 
     recButton newRecButton(200,100,0.3);
 
-    textButton txtButton("HELP ME",{550,600},30);
+    textButton txtButton("PUSH TO EXPLODE",{150,500},20);
 
 
     
@@ -53,7 +53,7 @@ int main()
 
 
         //ClearBackground(Color{redcolor,greencolor,bluecolor});
-        ClearBackground(WHITE);
+        ClearBackground(BLUE);
 
         pushbutton.update();
         push2.update();
