@@ -7,6 +7,7 @@
 #include "Button.h"
 #include "Slider.h"
 #include "recButton.h"
+#include "textButton.h"
 
 
 using namespace std;
@@ -29,6 +30,8 @@ int main()
     Button push2({400,400},0.1);
 
     recButton newRecButton(200,100,0.3);
+
+    textButton txtButton("HELP ME",{550,600},30);
 
 
     
@@ -54,6 +57,7 @@ int main()
 
         pushbutton.update();
         push2.update();
+        txtButton.update();
 
         newRecButton.update();
 
@@ -63,6 +67,7 @@ int main()
 
         pushbutton.draw();
         push2.draw();
+        txtButton.draw();
 
         newRecButton.draw();
 
