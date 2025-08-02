@@ -95,7 +95,19 @@ bool recButton::update()
                     if (!timerflag)
                     {
                         value=false;
-                    }
+      
+                  }
+
+    if (CheckCollisionPointRec(GetMousePosition(),collisRec)
+            && IsMouseButtonDown(MOUSE_BUTTON_LEFT)&& IsKeyDown(KEY_LEFT_SHIFT))
+            {
+                location.x=GetMousePosition().x-5;
+                location.y=GetMousePosition().y-5;
+                Rectangle collisRec={location.x,location.y
+                    ,recButton_down.width*buttonscale,recButton_down.height*buttonscale};
+
+
+            }
 
     if (timerflag)
             clicktimer();
@@ -119,17 +131,21 @@ void recButton::draw()
     DrawTextureEx(activetexture,{location.x,location.y},0,buttonscale,WHITE);
     
     if(value)
-        DrawTextEx(pencil,"rectangle",{location.x+recButton_down.width*buttonscale,location.y},70,0,BLACK);
+        DrawTextEx(pencil,"clicked",{location.x+recButton_down.width*buttonscale,location.y},25,0,BLACK);
         else
-            DrawTextEx(pencil,"press me...",{location.x+recButton_down.width*buttonscale,location.y},70,0,BLACK);
+            DrawTextEx(pencil,"press me...",{location.x+recButton_down.width*buttonscale,location.y},25,0,BLACK);
 
 
-    
+    Vector2 center=MeasureTextEx(pencil,"A",50,0);
+    int centx=((recButton_down.width*buttonscale)/2)-(center.x/2);
+    int centy=((recButton_down.height*buttonscale)/2)-(center.y/2);
 
-    DrawTextEx(pencil,"A",{location.x+(recButton_down.width*buttonscale)/3,location.y+(recButton_down.height*buttonscale)/7},
-        50,0,WHITE);
 
 
+    DrawTextEx(pencil,"A",{location.x+centx,location.y+centy},
+        50,0,Color{253,255,216,255});
+
+ 
     return;
 
 

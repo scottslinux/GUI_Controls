@@ -13,7 +13,7 @@ using namespace std;
 
 int main()
 {
-    InitWindow(1800,1800,"GUI Control Test Bed");
+    InitWindow(900,900,"GUI Control Test Bed");
     InitAudioDevice();
 
     SetTargetFPS(60);
@@ -25,17 +25,17 @@ int main()
     int redcolor=90;
     int bluecolor=120;
 
-    Button pushbutton({420,200},0.15);
-    Button push2({400,400},0.25);
+    Button pushbutton({420,200},0.1);
+    Button push2({400,400},0.1);
 
-    recButton newRecButton(1000,900,0.3);
+    recButton newRecButton(200,100,0.3);
 
 
     
 
-    Slider slide_red({150,900},0.4,5,0,10);
-    Slider slide_green({150,1200},0.4,5,0,255);
-    Slider slide_blue({150,1500},0.4,5,0,10000);
+    Slider slide_red({150,600},0.2,5,0,10);
+    Slider slide_green({150,700},0.2,5,0,255);
+    Slider slide_blue({150,800},0.2,5,0,10000);
 
 
 

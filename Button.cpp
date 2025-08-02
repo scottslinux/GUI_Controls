@@ -79,6 +79,14 @@ bool Button::update()
                         value=false;
                     }
 
+    if (CheckCollisionPointCircle(GetMousePosition(),center,100)
+            && IsMouseButtonDown(MOUSE_BUTTON_LEFT)&& IsKeyDown(KEY_LEFT_SHIFT))
+            {
+                location.x=GetMousePosition().x;
+                location.y=GetMousePosition().y;
+
+            }
+
     if (timerflag)
             clicktimer();
 
@@ -92,9 +100,9 @@ void Button::draw()
     DrawTextureEx(activetexture,{location.x,location.y},0,buttonscale,WHITE);
     
     if(value)
-        DrawTextEx(pencil,"PRESSED!!!",{location.x+button_off.width*buttonscale,location.y},70,0,BLACK);
+        DrawTextEx(pencil,"PRESSED!!!",{location.x+button_off.width*buttonscale,location.y},30,0,BLACK);
         else
-            DrawTextEx(pencil,"press me...",{location.x+button_off.width*buttonscale,location.y},70,0,BLACK);
+            DrawTextEx(pencil,"press me...",{location.x+button_off.width*buttonscale,location.y},30,0,BLACK);
 
 Vector2 center;
     center.x=button_off.width/2+location.x;
