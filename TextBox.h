@@ -23,6 +23,7 @@ string boxstring{};
 Color background{0,0,0,255};
 Color fntcolor{0,255,0,255};
 int fontsize=50;
+int maxdigits=0;
 
 
 
@@ -32,7 +33,7 @@ int fontsize=50;
 public:
 
 
-TextBox(Vector2 size, Vector2 loc);
+TextBox(int fontsz, int digits, Vector2 loc);
 ~TextBox();
 
 void update();
@@ -40,6 +41,7 @@ void draw();
 void print(string val);
 void print(int val);
 void print(float val);
+void insertcomma(string& num);
 
 
 

@@ -27,6 +27,8 @@ int main()
     int redcolor=90;
     int bluecolor=120;
 
+    float neg=1.0;
+
 
     // ⁡⁣⁢⁣​‌‍‌𝗖𝗿𝗲𝗮𝘁𝗶𝗻𝗴 𝗢𝗯𝗷𝗲𝗰𝘁𝘀 𝗳𝗿𝗼𝗺 𝘁𝗵𝗲 𝘁𝗼𝗼𝗹𝗯𝗼𝘅​⁡
     
@@ -36,12 +38,12 @@ int main()
     recButton newRecButton(200,100,0.3);
 
     textButton txtButton("Rectangle Button",{150,1200},50);
-    TextBox mybox({100,75},{800,800});
+    TextBox mybox(70,20,{800,800});  //font, digits, location
 
 
     Slider slide_red({150,1300},0.5,5,0,10);
     Slider slide_green({150,1500},0.5,5,0,255);
-    Slider slide_blue({150,1700},0.5,5,0,10000);
+    Slider slide_blue({150,1700},0.5,5,0,1000000);
 
 
 
@@ -62,14 +64,16 @@ int main()
         push2.update();
         txtButton.update();
 
-        newRecButton.update();
+        if(newRecButton.update())
+            neg*=-1.0;
         mybox.update();
 
         greencolor=slide_green.update();
         redcolor=slide_red.update();
         bluecolor=slide_blue.update();
 
-        mybox.print((float)bluecolor/redcolor);
+        float result=((float)bluecolor*(float)redcolor*neg);
+        mybox.print(result);
 
         pushbutton.draw();
         push2.draw();

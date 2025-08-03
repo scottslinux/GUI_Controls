@@ -85,10 +85,12 @@ bool recButton::update()
     if (CheckCollisionPointRec(GetMousePosition(),collisRec)
             && IsMouseButtonDown(MOUSE_BUTTON_LEFT)&& !timerflag)
                 {
-                    value=true;
+                    
                     if(!IsSoundPlaying(click))
                         PlaySound(click);
                     timerflag=true;
+
+                    value=true;
 
                 }
                     else    

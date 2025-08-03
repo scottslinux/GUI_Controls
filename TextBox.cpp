@@ -11,7 +11,7 @@ int TextBox::resourcecounter3=0;
 bool TextBox::resourceguard3=false;
 
 //---------------------------------------------------------
-TextBox::TextBox(Vector2 dim, Vector2 loc): size{dim},locationxy{loc}
+TextBox::TextBox(int fontsz, int digits, Vector2 loc): fontsize{fontsz},locationxy{loc},maxdigits{digits}
 {
     resourcecounter3++; //count for each attempt to load
     if (!resourceguard3)
@@ -26,12 +26,16 @@ TextBox::TextBox(Vector2 dim, Vector2 loc): size{dim},locationxy{loc}
         
     }
 
-    boxstring="*************";
-    Vector2 messagesize=MeasureTextEx(boxfont,boxstring.c_str(),50,0);
-    size={messagesize.x*1.1,messagesize.y*1.25};
+    boxstring="X"; //get the size for one large character and then mult for full size
+    Vector2 messagesize=MeasureTextEx(boxfont,boxstring.c_str(),fontsize,0);
+    messagesize.x*=digits;  //size * numberofchars 
 
 
 
+    size={messagesize.x,messagesize.y*1.25};
+
+
+    boxstring="";  //start with null
 
 }
 //---------------------------------------------------------
@@ -62,8 +66,23 @@ void TextBox::update()
 //---------------------------------------------------------
 void TextBox::draw()
 {
+    
+
+
+
     DrawRectangle(locationxy.x,locationxy.y,size.x,size.y,background);
-    DrawTextEx(boxfont,boxstring.c_str(),{locationxy.x+5,locationxy.y+5},50,0,fntcolor);
+
+    if (boxstring.length()>maxdigits)
+    {
+        char buffer[20];
+        for (int i=0;i<=maxdigits;i++)
+            buffer[i]={'*'};
+
+        DrawTextEx(boxfont,buffer,{locationxy.x+5,locationxy.y+5},fontsize,0,fntcolor);
+        return;
+    }
+
+    DrawTextEx(boxfont,boxstring.c_str(),{locationxy.x+5,locationxy.y+5},fontsize,0,fntcolor);
 
     return;
 }
@@ -79,16 +98,81 @@ void TextBox::print(int content)
 {
     boxstring=to_string(content);
 
+
     return;
 }
 //-----------------------------------------------------------
 void TextBox::print(float content)
 {
+    
     char buffer[20];    //display string of float with 2 decimal points
     snprintf(buffer,sizeof(buffer),"%.2f",content);
 
-    boxstring=to_string(content);
+    boxstring=buffer;
+
+    insertcomma(boxstring);
 
     return;
 }
 //-----------------------------------------------------------
+void TextBox::insertcomma(string& numstrng)
+{
+    int len=numstrng.length();
+    int leftdigits=0;
+    int commas=0;
+
+    for(char i:numstrng)
+    {
+        if (i!='-' && i!='.')   //count all the members of the string to the left of decimal
+                leftdigits++;
+        if (i=='.') break;      //stop couting on the left
+    }
+    
+    string leftside=numstrng.substr(0,leftdigits);
+    string rightside=numstrng.substr(leftside.length(),numstrng.length());
+
+    string tempstr="";
+    int index=0;
+    int commacount=0;
+    bool decimal=false;
+
+
+    for (char i:leftside)
+    {
+        index++;
+       if (i=='-')      //add the negative sign and then onto the next iteration
+            {
+                tempstr+='-';
+                continue;   //next for iteration
+            }
+            else
+            {
+                tempstr+=i;
+                index++;
+                commacount++;
+            }
+       if (commacount==3 && index<=leftside.length())
+            {
+                tempstr+=',';
+                commacount=0;
+            }
+
+       
+       if (index==leftdigits%3) //comma after the first occurrence
+       {
+            tempstr+=',';
+            commacount=0;
+       }
+        
+
+        
+
+    }
+    cout<<"left string: "<<leftside<<" right string: "<<rightside<<" temp: "<<tempstr<<endl;
+
+
+    numstrng=tempstr+rightside;
+
+    return;
+
+}
