@@ -151,7 +151,7 @@ void TextBox::insertcomma(string& numstrng)
                 index++;
                 commacount++;
             }
-       if (commacount==3 && index<=leftside.length())
+       if (commacount==3 )
             {
                 tempstr+=',';
                 commacount=0;
