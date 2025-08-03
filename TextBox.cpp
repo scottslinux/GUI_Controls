@@ -137,41 +137,21 @@ void TextBox::insertcomma(string& numstrng)
     bool decimal=false;
 
 
-    for (char i:leftside)
+    for (int i=leftside.length();i>=0;i--)
     {
-        index++;
-       if (i=='-')      //add the negative sign and then onto the next iteration
-            {
-                tempstr+='-';
-                continue;   //next for iteration
-            }
-            else
-            {
-                tempstr+=i;
-                index++;
-                commacount++;
-            }
-       if (commacount==3 )
-            {
-                tempstr+=',';
-                commacount=0;
-            }
-
-       
-       if (index==leftdigits%3) //comma after the first occurrence
-       {
-            tempstr+=',';
-            commacount=0;
-       }
-        
+        cout<<leftside[i];
 
         
 
     }
+    cout<<endl;
+
+
     cout<<"left string: "<<leftside<<" right string: "<<rightside<<" temp: "<<tempstr<<endl;
 
 
     numstrng=tempstr+rightside;
+    boxstring=leftside;
 
     return;
 
