@@ -136,21 +136,35 @@ void TextBox::insertcomma(string& numstrng)
     int commacount=0;
     bool decimal=false;
 
+    index=0;
 
     for (int i=leftside.length();i>=0;i--)
     {
-        cout<<leftside[i];
+        index++;
 
-        
+        if(index>3)
+        {
+            tempstr+=',';
+            tempstr+=leftside[i];
+            
+            index=0;
+            continue;
+        }
+
+        tempstr+=leftside[i];
+
+
 
     }
-    cout<<endl;
 
 
-    cout<<"left string: "<<leftside<<" right string: "<<rightside<<" temp: "<<tempstr<<endl;
+    cout<<tempstr<<endl;
 
 
-    numstrng=tempstr+rightside;
+
+                            //  123456.00
+
+    numstrng=tempstr;//+rightside;
     boxstring=leftside;
 
     return;

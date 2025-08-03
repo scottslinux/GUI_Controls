@@ -37,13 +37,13 @@ int main()
 
     recButton newRecButton(200,100,0.3);
 
-    textButton txtButton("Rectangle Button",{150,1200},50);
+    textButton txtButton("Rectangle Button",{800,1200},50);
     TextBox mybox(70,20,{800,800});  //font, digits, location
 
 
-    Slider slide_red({150,1300},0.5,5,0,10);
-    Slider slide_green({150,1500},0.5,5,0,255);
-    Slider slide_blue({150,1700},0.5,5,0,1000000);
+    Slider slide_red({150,900},0.5,5,0,10);
+    Slider slide_green({150,1200},0.5,5,0,255);
+    Slider slide_blue({150,1500},0.5,5,0,1000000);
 
 
 
