@@ -129,6 +129,8 @@ int Slider::update()
             if (percentage<0.0) percentage=0;  //clamp to end floating point error
             value=(int)max*percentage;
 
+            ismoving=true;
+
             return value;
             
 
@@ -161,12 +163,18 @@ int Slider::update()
 //**************************************************** */
 void Slider::draw()
 {
-    Color light{150,234,97,(rand()%150+100)};
+    Color light;
+    if(!ismoving)
+         light={150,234,97,255};
+            else
+                light={255,50,0,255};
+
+    
 
     int offset=200;
     DrawTextureEx(plate_on,location,0,scale,WHITE);
     //flashing LED light
-    DrawCircle(location.x+plate_off.width*scale*0.925,location.y+plate_off.height*scale*.2,6,light);
+    DrawCircle(location.x+plate_off.width*scale*0.925,location.y+plate_off.height*scale*.19,6,light);
 
     
     DrawTextureEx(knob,{slidepoint-10,(plate_off.height)*scale/5+location.y},0,scale,WHITE);
@@ -182,7 +190,7 @@ void Slider::draw()
 
 
 
-
+    ismoving=false;
 
     return;
 }

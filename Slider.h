@@ -16,6 +16,7 @@ private:
     
     bool timerflag=false;
     bool animationflag=false;
+    bool ismoving=false;
 
     Vector2 location;
 

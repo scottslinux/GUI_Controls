@@ -1,0 +1,48 @@
+#pragma once
+
+#include <iostream>
+#include <vector>
+#include <string>
+#include <raylib.h>
+
+using namespace std;
+
+
+class TextBox{
+
+protected:
+
+static Font boxfont;
+static int resourcecounter3;
+static bool resourceguard3;
+
+
+Vector2 locationxy{0,0};
+Vector2 size{0,0};
+string boxstring{};
+Color background{0,0,0,255};
+Color fntcolor{0,255,0,255};
+int fontsize=50;
+
+
+
+
+
+
+public:
+
+
+TextBox(Vector2 size, Vector2 loc);
+~TextBox();
+
+void update();
+void draw();
+void print(string val);
+void print(int val);
+void print(float val);
+
+
+
+
+
+};

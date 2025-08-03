@@ -149,7 +149,7 @@ void textButton::unloadResources()
 bool textButton::clicktimer()
 {
 
-    if(timer<0.6)
+    if(timer<0.4)
     {
             timer+=GetFrameTime();
 

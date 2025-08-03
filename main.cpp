@@ -8,13 +8,14 @@
 #include "Slider.h"
 #include "recButton.h"
 #include "textButton.h"
+#include "TextBox.h"
 
 
 using namespace std;
 
 int main()
 {
-    InitWindow(900,900,"GUI Control Test Bed");
+    InitWindow(2000,2000,"GUI Control Test Bed");
     InitAudioDevice();
 
     SetTargetFPS(60);
@@ -26,19 +27,21 @@ int main()
     int redcolor=90;
     int bluecolor=120;
 
-    Button pushbutton({420,200},0.1);
-    Button push2({400,400},0.1);
+
+    // ⁡⁣⁢⁣​‌‍‌𝗖𝗿𝗲𝗮𝘁𝗶𝗻𝗴 𝗢𝗯𝗷𝗲𝗰𝘁𝘀 𝗳𝗿𝗼𝗺 𝘁𝗵𝗲 𝘁𝗼𝗼𝗹𝗯𝗼𝘅​⁡
+    
+    Button pushbutton({420,200},0.2);
+    Button push2({400,400},0.2);
 
     recButton newRecButton(200,100,0.3);
 
-    textButton txtButton("PUSH TO EXPLODE",{150,500},20);
+    textButton txtButton("Rectangle Button",{150,1200},50);
+    TextBox mybox({100,75},{800,800});
 
 
-    
-
-    Slider slide_red({150,600},0.2,5,0,10);
-    Slider slide_green({150,700},0.2,5,0,255);
-    Slider slide_blue({150,800},0.2,5,0,10000);
+    Slider slide_red({150,1300},0.5,5,0,10);
+    Slider slide_green({150,1500},0.5,5,0,255);
+    Slider slide_blue({150,1700},0.5,5,0,10000);
 
 
 
@@ -60,14 +63,18 @@ int main()
         txtButton.update();
 
         newRecButton.update();
+        mybox.update();
 
         greencolor=slide_green.update();
         redcolor=slide_red.update();
         bluecolor=slide_blue.update();
 
+        mybox.print((float)bluecolor/redcolor);
+
         pushbutton.draw();
         push2.draw();
         txtButton.draw();
+        mybox.draw();
 
         newRecButton.draw();
 
