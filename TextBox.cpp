@@ -105,12 +105,33 @@ void TextBox::print(int content)
 void TextBox::print(float content)
 {
     
+    cout<<"content="<<content<<endl;
+
     char buffer[20];    //display string of float with 2 decimal points
     snprintf(buffer,sizeof(buffer),"%.2f",content);
 
     boxstring=buffer;
 
     insertcomma(boxstring);
+    cout<<"going to insert comma...\n";
+    cout<<boxstring<<endl;
+
+    return;
+}
+//-----------------------------------------------------------
+void TextBox::print(double content)
+{
+    
+    cout<<"content="<<content<<endl;
+
+    char buffer[20];    //display string of float with 2 decimal points
+    snprintf(buffer,sizeof(buffer),"%.2f",content);
+
+    boxstring=buffer;
+
+    insertcomma(boxstring);
+    cout<<"going to insert comma...\n";
+    cout<<boxstring<<endl;
 
     return;
 }
@@ -120,6 +141,8 @@ void TextBox::insertcomma(string& numstrng)
     int len=numstrng.length();
     int leftdigits=0;
     int commas=0;
+
+    cout<<"numstrng= "<<numstrng<<endl;
 
     for(char i:numstrng)
     {
@@ -131,41 +154,45 @@ void TextBox::insertcomma(string& numstrng)
     string leftside=numstrng.substr(0,leftdigits);
     string rightside=numstrng.substr(leftside.length(),numstrng.length());
 
+    cout<<"leftside: "<<leftside<<" rightside: "<<rightside<<endl;
+
     string tempstr="";
+    string temp2="";
     int index=0;
-    int commacount=0;
-    bool decimal=false;
+    
 
-    index=0;
 
-    for (int i=leftside.length();i>=0;i--)
+    for (int i=leftside.length()-1;i>=0;i--)
     {
         index++;
 
-        if(index>3)
+        if((index>3))
         {
             tempstr+=',';
             tempstr+=leftside[i];
-            
-            index=0;
+            index=1;
             continue;
+
         }
 
         tempstr+=leftside[i];
-
-
+        
 
     }
 
 
-    cout<<tempstr<<endl;
+    cout<<"left string: "<<leftside<<" right string: "<<rightside<<" temp: "<<tempstr<<endl;
+
+    for (int i=tempstr.length()-1;i>=0;i--)
+    {
+        temp2+=tempstr[i];
 
 
+    }
 
-                            //  123456.00
-
-    numstrng=tempstr;//+rightside;
-    boxstring=leftside;
+    numstrng=temp2+rightside;
+    boxstring=numstrng;
+    cout<<"Boxstring..."<<boxstring<<endl;
 
     return;
 

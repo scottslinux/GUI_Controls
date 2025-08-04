@@ -73,7 +73,7 @@ int main()
         bluecolor=slide_blue.update();
 
         float result=((float)bluecolor*(float)redcolor*neg);
-        mybox.print(result);
+        mybox.print((double)123485500.56);
 
         pushbutton.draw();
         push2.draw();

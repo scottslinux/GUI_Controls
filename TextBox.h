@@ -41,6 +41,7 @@ void draw();
 void print(string val);
 void print(int val);
 void print(float val);
+void print(double content);
 void insertcomma(string& num);
 
 
