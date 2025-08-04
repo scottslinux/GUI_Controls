@@ -143,8 +143,10 @@ void TextBox::insertcomma(string& numstrng)
     int commas=0;
     bool negflag=false;
 
+    
+
     cout<<"numstrng= "<<numstrng<<endl;
-    if(numstrng[0]='-')             // trim off the negative and set the flag for putting it back
+    if(numstrng[0]=='-')             // trim off the negative and set the flag for putting it back
     {
         numstrng=numstrng.substr(1);
         negflag=true;
@@ -160,6 +162,8 @@ void TextBox::insertcomma(string& numstrng)
     
     string leftside=numstrng.substr(0,leftdigits);
     string rightside=numstrng.substr(leftside.length(),numstrng.length());
+
+ //   if (leftside.length()%3 ==0) return;    //if no commas needed get out
 
     cout<<"leftside: "<<leftside<<" rightside: "<<rightside<<endl;
 
