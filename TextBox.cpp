@@ -97,6 +97,7 @@ void TextBox::print(string content)
 void TextBox::print(int content)
 {
     boxstring=to_string(content);
+    insertcomma(boxstring);
 
 
     return;
@@ -163,7 +164,6 @@ void TextBox::insertcomma(string& numstrng)
     string leftside=numstrng.substr(0,leftdigits);
     string rightside=numstrng.substr(leftside.length(),numstrng.length());
 
- //   if (leftside.length()%3 ==0) return;    //if no commas needed get out
 
     cout<<"leftside: "<<leftside<<" rightside: "<<rightside<<endl;
 

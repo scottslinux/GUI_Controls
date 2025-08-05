@@ -35,10 +35,10 @@ int main()
     Button pushbutton({420,200},0.2);
     Button push2({400,400},0.2);
 
-   // recButton newRecButton(200,100,0.3);
+    recButton newRecButton(200,100,0.3);
 
     textButton txtButton("Rectangle Button",{800,1200},50);
-    TextBox mybox(70,15,{800,800});  //font, digits, location
+    TextBox mybox(70,10,{800,800});  //font, digits, location
 
 
     Slider slide_red({150,900},0.5,5,0,10);
@@ -63,6 +63,7 @@ int main()
         pushbutton.update();
         push2.update();
         txtButton.update();
+        newRecButton.update();
 
         
         mybox.update();
@@ -74,14 +75,14 @@ int main()
         float result=(225);
         cout<<"*****Result: "<<result<<endl;
 
-        mybox.print((double)(greencolor/(redcolor+1))*bluecolor*-1.0f);
+        mybox.print(12345*greencolor*redcolor);
 
         pushbutton.draw();
         push2.draw();
         txtButton.draw();
         mybox.draw();
 
-        //newRecButton.draw();
+        newRecButton.draw();
 
         slide_blue.draw();
         slide_red.draw();
