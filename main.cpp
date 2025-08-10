@@ -9,6 +9,7 @@
 #include "recButton.h"
 #include "textButton.h"
 #include "TextBox.h"
+#include "InputBox.h"
 
 
 using namespace std;
@@ -45,6 +46,10 @@ int main()
     Slider slide_green({150,1200},0.5,5,0,255);
     Slider slide_blue({150,1500},0.5,5,0,1000000);
 
+    InputBox msgbox(20,5,60,{1200,1700});
+    
+
+
 
 
     
@@ -64,6 +69,8 @@ int main()
         push2.update();
         txtButton.update();
         newRecButton.update();
+
+        msgbox.Update();
 
         
         mybox.update();
@@ -87,6 +94,9 @@ int main()
         slide_blue.draw();
         slide_red.draw();
         slide_green.draw();
+
+        msgbox.Draw();
+
 
 
 
