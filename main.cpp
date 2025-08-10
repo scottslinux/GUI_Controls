@@ -46,7 +46,7 @@ int main()
     Slider slide_green({150,1200},0.5,5,0,255);
     Slider slide_blue({150,1500},0.5,5,0,1000000);
 
-    InputBox msgbox(20,5,60,{1200,1700});
+    InputBox msgbox(20,5,60,{1200,1400});
     
 
 

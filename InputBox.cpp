@@ -66,7 +66,7 @@ void InputBox::Draw()
 {
    Rectangle txtbx={xypos.x,xypos.y,pxlwidth,pxlheight};
 
-   DrawRectanglePro(txtbx,{0,0},0,WHITE);
+   DrawRectanglePro(txtbx,{0,0},0,Color{212,217,196,255});
 
    DrawTextEx(interfnt,txtstr.c_str(),{xypos},fontsize,0,BLACK);
 
@@ -120,36 +120,58 @@ char InputBox::KeyCodeToChar(int key)
 void InputBox::drawcursor()
 {
     int colpos=0;
+    int cols=0;
     int rows=0;
     int rowpos=0;
+    
 
     for (char i:txtstr)
         {   
-            if (i=='\r'||(i=='\n'))
+            if (i=='\n')
             {
                 colpos=0;   //reset to next line for a newline char
                 rows++;
-                cout<<rows<<": rows"<<endl;
+                rowpos+=charheight;
+                
             }
-            string test(1,i);
-            colpos+=MeasureTextEx(interfnt,test.c_str(),fontsize,0).x;
+            else
+            {
+                cols++;
+                string test(1,i);
+                colpos+=MeasureTextEx(interfnt,test.c_str(),fontsize,0).x;
+
+            }
             
-            cout<<"rowpos: "<<rowpos<<endl;
-
-
+            
+            //cout<<"colpos: "<<colpos<<endl;
 
 
 
         }
-        rowpos=charheight*rows;
+       
+
         blinktime();        //start the timer
 
         if(timer<timeinterval/2)
-            DrawRectangle(xypos.x+colpos+5,xypos.y+rowpos,40,charheight,GREEN);
+            DrawRectangle(xypos.x+colpos,xypos.y+rowpos,40,charheight,GREEN);
             
 
 
-            
+     //cout<<"row: "<<rows<<endl;
+
+     if (cols>boxwidth)
+     {
+        
+        char t=txtstr.back();
+        txtstr.pop_back();
+        txtstr.back()='\n';
+        txtstr.push_back(t);
+
+        cols=0;
+        
+  
+        return;
+     }
 
 }
 
