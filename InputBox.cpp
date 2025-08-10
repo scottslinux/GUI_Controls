@@ -23,6 +23,7 @@ InputBox::InputBox(int bxwidth, int bxheight,int fntsz, Vector2 xy):boxwidth(bxw
     Vector2 sizetest=MeasureTextEx(interfnt,teststr.c_str(),fontsize,0);
     charwidth=sizetest.x/5;
     charheight=sizetest.y;
+    column=0;
 
     pxlwidth=(sizetest.x/5)*boxwidth;
     pxlheight=sizetest.y * boxheight;
@@ -53,11 +54,16 @@ while (key > 0)
             }
 
         key = GetKeyPressed();
-
+        column++;
 
     }
     
     
+    if(column>boxwidth-1)
+        {
+            column=0;
+            txtstr.push_back('\n');
+        }
 
     return "";
 }
@@ -157,21 +163,8 @@ void InputBox::drawcursor()
             
 
 
-     //cout<<"row: "<<rows<<endl;
 
-     if (cols>boxwidth)
-     {
-        
-        char t=txtstr.back();
-        txtstr.pop_back();
-        txtstr.back()='\n';
-        txtstr.push_back(t);
-
-        cols=0;
-        
-  
-        return;
-     }
+     
 
 }
 

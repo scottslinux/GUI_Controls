@@ -27,10 +27,12 @@ class InputBox{
 
         int boxwidth=0;
         int boxheight=0;
+        int column=0;
         float pxlwidth=0;
         float pxlheight=0;
         float charwidth=0;
         float charheight=0;
+
 
         float dtime=0.0;
         float cursorinterval=0.25;  //.25 ms cursor blink interval
